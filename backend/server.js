@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 // connection to database
 const { db } = require("./models");
 db.sequelize
-  .sync()
+  .sync({force:true})
   .then(() => console.log("successfully connected to database"));
 
 app.use("/api/user", require("./routes/userRoutes"));

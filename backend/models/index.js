@@ -14,6 +14,16 @@ const db={}
 
 db.Sequelize=Sequelize
 db.sequelize=sequelize
-db.user=require('../models/userModel')
+db.user=require('../models/userModel')(sequelize,Sequelize)
+db.semester=require('../models/semesterModel')(sequelize,Sequelize)
+db.department=require('../models/departmentModel')(sequelize,Sequelize)
+db.book=require('../models/bookModel')(sequelize,Sequelize)
+db.notification=require('../models/notificationModel')(sequelize,Sequelize)
+
+// relationships between models and both hasMany and belongsTo works same
+db.user.hasMany(db.notification,{foreignKey:'userID'})
+db.user.hasMany(db.book,{foreignKey:'userID'})
+db.book.belongsTo(db.semester,{foreignKey:'semesterID'})
+db.book.belongsTo(db.department, { foreignKey: "departmentID" });
 
 module.exports={db}
