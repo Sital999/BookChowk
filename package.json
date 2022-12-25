@@ -1,0 +1,27 @@
+{
+  "name": "bookchowk",
+  "version": "1.0.0",
+  "description": "simple web application for buying and renting books",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ./backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sital999/BookChowk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sital999/BookChowk/issues"
+  },
+  "homepage": "https://github.com/Sital999/BookChowk#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "nodemon": "^2.0.20",
+    "sequelize": "^6.26.0",
+    "sqlite3": "^5.1.2"
+  }
+}
