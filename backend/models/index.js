@@ -14,11 +14,11 @@ const db={}
 
 db.Sequelize=Sequelize
 db.sequelize=sequelize
-db.user=require('../models/userModel')(sequelize,Sequelize)
-db.semester=require('../models/semesterModel')(sequelize,Sequelize)
-db.department=require('../models/departmentModel')(sequelize,Sequelize)
-db.book=require('../models/bookModel')(sequelize,Sequelize)
-db.notification=require('../models/notificationModel')(sequelize,Sequelize)
+db.user=require('./userModel')(sequelize,Sequelize)
+db.semester=require('./semesterModel')(sequelize,Sequelize)
+db.department=require('./departmentModel')(sequelize,Sequelize)
+db.book=require('./bookModel')(sequelize,Sequelize)
+db.notification=require('./notificationModel')(sequelize,Sequelize)
 
 // relationships between models and both hasMany and belongsTo works same
 db.user.hasMany(db.notification,{foreignKey:'userID'})

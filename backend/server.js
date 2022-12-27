@@ -1,18 +1,22 @@
 const express = require("express");
-const errorHandler = require("./midlleware/errorHandlerMidlleware");
-// configuring . env file
-require("dotenv").configure
 
-const port=process.env.PORT ||8000
+require("dotenv").config({path:'./backend/.env'})
+const errorHandler = require("./midlleware/errorHandlerMidlleware");
+
+// for cross site request
+const cors = require("cors");
+
+const port = process.env.PORT_NUMBER||8000;
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // connection to database
 const { db } = require("./models");
 db.sequelize
-  .sync({force:true})
+  .sync()
   .then(() => console.log("successfully connected to database"));
 
 app.use("/api/user", require("./routes/userRoutes"));
