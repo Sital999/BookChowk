@@ -54,7 +54,7 @@ const loginUser = asyncHandler(async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        token: generateToken(user.token),
+        token: generateToken(user.id),
       },
     });
   }
@@ -65,12 +65,14 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const users=asyncHandler(async(req, res)=>{
     const users= await User.findAll({ });
-    return res.status(200).json({users})
+    return res.status(200).json({users,id:req.userId})
 })
 
 // generate Token
-const generateToken = (userId) => {
-  return jwt.sign({ userId }, process.env.SECRET_KEY, { expiresIn: "10d" });
+const generateToken = (id) => {
+   return jwt.sign({ id }, process.env.SECRET_KEY, {
+     expiresIn: "30d",
+   });
 };
 
 module.exports = {
