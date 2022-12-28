@@ -21,6 +21,14 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
+      semester:{
+        type: Sequelize.STRING,
+        allowNull:true
+      },
+      department:{
+        type: Sequelize.STRING,
+        allowNull:true
+      }
     },
     { timestamps: false }
   );

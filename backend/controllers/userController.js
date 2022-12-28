@@ -1,8 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const { db } = require("../models");
-const User = db.user;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const User = db.user;
+const Semester = db.semester;
+const Department = db.department;
 
 // Post /api/user/
 // register user
@@ -63,20 +65,48 @@ const loginUser = asyncHandler(async (req, res) => {
   throw new Error("Invalid Credentials");
 });
 
-const users=asyncHandler(async(req, res)=>{
-    const users= await User.findAll({ });
-    return res.status(200).json({users,id:req.userId})
-})
+const users = asyncHandler(async (req, res) => {
+  const users = await User.findAll({});
+  return res.status(200).json({ users, id: req.userId });
+});
 
 // generate Token
 const generateToken = (id) => {
-   return jwt.sign({ id }, process.env.SECRET_KEY, {
-     expiresIn: "30d",
-   });
+  return jwt.sign({ id }, process.env.SECRET_KEY, {
+    expiresIn: "30d",
+  });
 };
+
+// update semester and department
+
+const updateSemDept = asyncHandler(async (req, res) => {
+  const { semester, department } = req.body;
+  const sem = await Semester.findOne({ where: { name: semester } });
+  if (!sem) {
+    return res
+      .status(400)
+      .json({ msg: `Semester with name "${semester}" does not exist` });
+  }
+  const dept = await Department.findOne({ where: { name: department } });
+  if (!dept) {
+    return res
+      .status(400)
+      .json({ msg: `Department with name "${department}" does not exist` });
+  }
+  // now update user
+  // excludes exclude the provided properties
+  const user = await User.findOne({
+    attributes: { exclude: ["password"] },
+    where: { id: req.userId },
+  });
+  user.set(req.body);
+  await user.save();
+  res.status(200).json({ user });
+});
 
 module.exports = {
   registerUser,
   loginUser,
-  users
+  users,
+  updateSemDept,
 };

@@ -13,7 +13,7 @@ const protectedRoute = asyncHandler(async (req, res, next) => {
     try {
       token = req.headers.authorization.split(" ")[1];
       decoded = jwt.verify(token, process.env.SECRET_KEY);
-      req.userID = decoded.id;
+      req.userId = decoded.id;
       next();
     } catch (err) {
       res.status(401);
