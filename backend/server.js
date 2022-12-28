@@ -20,6 +20,9 @@ db.sequelize
   .then(() => console.log("successfully connected to database"));
 
 app.use("/api/user", require("./routes/userRoutes"));
+app.use("/api/semester",require("./routes/semesterRoutes"));
+app.use("/api/department", require("./routes/departmentRoutes"));
+
 // handling errors
 app.use(errorHandler);
 app.listen(port, () => {

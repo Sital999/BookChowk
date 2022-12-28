@@ -24,6 +24,7 @@ db.notification=require('./notificationModel')(sequelize,Sequelize)
 db.user.hasMany(db.notification,{foreignKey:'userID'})
 db.user.hasMany(db.book,{foreignKey:'userID'})
 db.book.belongsTo(db.semester,{foreignKey:'semesterID'})
-db.book.belongsTo(db.department, { foreignKey: "departmentID" });
+db.book.belongsTo(db.department, { foreignKey: "departmentID" })
+
 
 module.exports={db}
