@@ -65,9 +65,12 @@ const loginUser = asyncHandler(async (req, res) => {
   throw new Error("Invalid Credentials");
 });
 
+// all users
 const users = asyncHandler(async (req, res) => {
-  const users = await User.findAll({});
-  return res.status(200).json({ users, id: req.userId });
+  const users = await User.findAll({
+    attributes: { exclude: ["password"] },
+  });
+  return res.status(200).json({ users});
 });
 
 // generate Token
