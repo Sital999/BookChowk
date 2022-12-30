@@ -1,2 +1,3 @@
-./bookchowk.sqlite
-../backend/.env
+bookchowk.sqlite
+backend/.env
+node_modules/
