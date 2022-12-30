@@ -1,6 +1,7 @@
 module.exports=(sequelize,Sequelize)=>{
     const string=Sequelize.STRING
     const integer=Sequelize.INTEGER
+    const boolean=Sequelize.BOOLEAN
     const Book=sequelize.define('Book',{
         name:{
             type:string,
@@ -21,6 +22,14 @@ module.exports=(sequelize,Sequelize)=>{
         description:{
             type:string,
         },
+        isRent:{
+            type:boolean,
+            defaultValue:false
+        },
+        isSell:{
+            type:boolean,
+            defaultValue:false
+        }
     },{
         timestamps:false
     })

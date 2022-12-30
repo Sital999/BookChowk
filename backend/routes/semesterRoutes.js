@@ -6,7 +6,12 @@ const {
   updateSemester,
   deleteSemester,
 } = require("../controllers/semesterController");
+const { protectedRoute } = require("../midlleware/authHandlerMiddleware");
 
-router.route('/').get(getSemester).post(postSemester)
-router.route('/:semesterId').put(updateSemester).delete(deleteSemester)
+
+router.route("/").get(getSemester).post(protectedRoute,postSemester);
+router
+  .route("/:semesterId")
+  .put(protectedRoute, updateSemester)
+  .delete(protectedRoute,deleteSemester);
 module.exports=router

@@ -6,7 +6,11 @@ const {
   updateDepartment,
   deleteDepartment,
 } = require("../controllers/departmentController");
+const {protectedRoute} = require("../midlleware/authHandlerMiddleware")
 
-router.route("/").get(getDepartment).post(postDepartment);
-router.route("/:departmentId").put(updateDepartment).delete(deleteDepartment);
+router.route("/").get(getDepartment).post(protectedRoute,postDepartment);
+router
+  .route("/:departmentId")
+  .put(protectedRoute, updateDepartment)
+  .delete(protectedRoute,deleteDepartment);
 module.exports = router;

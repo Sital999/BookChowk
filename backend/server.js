@@ -22,6 +22,7 @@ db.sequelize
 app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/semester",require("./routes/semesterRoutes"));
 app.use("/api/department", require("./routes/departmentRoutes"));
+app.use('/api/book',require("./routes/bookRoutes"))
 
 // handling errors
 app.use(errorHandler);

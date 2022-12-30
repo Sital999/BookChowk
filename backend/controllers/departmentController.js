@@ -43,7 +43,6 @@ const updateDepartment = asyncHandler(async (req, res) => {
 
 const deleteDepartment = asyncHandler(async (req, res) => {
   const { departmentId } = req.params;
-  const { department } = req.body;
   const dept = await department.findOne({ where: { id: departmentId } });
   if (!dept) {
     res.status(400);

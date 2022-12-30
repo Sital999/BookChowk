@@ -1,4 +1,5 @@
-const Sequelize= require("sequelize")
+const {Sequelize,Op}= require("sequelize")
+
 
 // making connection with Sequelize instance by passing parameters seperately
 const sequelize = new Sequelize('bookchowk','username','password',{
@@ -19,6 +20,7 @@ db.semester=require('./semesterModel')(sequelize,Sequelize)
 db.department=require('./departmentModel')(sequelize,Sequelize)
 db.book=require('./bookModel')(sequelize,Sequelize)
 db.notification=require('./notificationModel')(sequelize,Sequelize)
+db.Op=Op
 
 // relationships between models and both hasMany and belongsTo works same
 db.user.hasMany(db.notification,{foreignKey:'userID'})
