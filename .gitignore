@@ -1,1 +1,2 @@
-bookchowk.sqlite
+./bookchowk.sqlite
+../backend/.env
