@@ -1,27 +1,33 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import {useSelector} from "react-redux"
-import { setLogin,setRegister,setReset} from "../slice/headerSlice";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { setLogin, setRegister, setReset } from "../features/headerSlice";
 import { useDispatch } from "react-redux";
 
 const Header = () => {
-  const navigate = useNavigate()
-  const selector=useSelector((state)=>state.header)
-  const dispatch = useDispatch()
- 
+  const navigate = useNavigate();
+  const selector = useSelector((state) => state.header);
+  const dispatch = useDispatch();
+
   return (
     <>
-      {(selector.login || selector.signup) ? (
-        <div className="flex flex-row justify-center pt-1 bg-bgColor">
+      {selector.login || selector.signup ? (
+        <div className="flex flex-row justify-center pt-4 bg-bgColor">
           <div className="basis-12/12">
-            <button onClick={()=>{ 
-              dispatch(setReset())
-              navigate('/')}} className="text-textColor font-bold text-3xl">BookChowk</button>
+            <button
+              onClick={() => {
+                dispatch(setReset());
+                navigate("/");
+              }}
+              className="text-textColor font-bold text-3xl"
+            >
+              BookChowk
+            </button>
           </div>
         </div>
       ) : (
         <>
-          <div className="flex flex-row justify-center pt-1 bg-bgColor">
+          <div className="flex flex-row justify-center pt-4 bg-bgColor">
             <div className="basis-8/12">
               <h1 className="text-textColor font-bold text-3xl">BookChowk</h1>
             </div>
@@ -52,6 +58,6 @@ const Header = () => {
       )}
     </>
   );
-}
+};
 
-export default Header
+export default Header;
