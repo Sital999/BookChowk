@@ -1,8 +1,10 @@
+import BookChowkRoutes from "./routes";
+
 function App() {
   return (
-    <div >
-      "BookChowk"
-    </div>
+    <>
+      <BookChowkRoutes />
+    </>
   );
 }
 
