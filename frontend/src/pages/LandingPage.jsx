@@ -1,10 +1,16 @@
-import React from "react";
-import Header from "../component/Header"
+import React, { useEffect } from "react";
+import Header from "../component/Header";
 // import { Icon } from "react-3d-icons";
 // import { bookstack } from "react-3d-icons";
-import book from "../static/images/book.png"
+import book from "../assets/book.png";
+import { useDispatch } from "react-redux";
+import { setReset } from "../features/headerSlice";
 
 const LandingPage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setReset());
+  }, [dispatch]);
   return (
     <>
       <Header />
@@ -48,5 +54,3 @@ const LandingPage = () => {
 
 export default LandingPage;
 /* Rectangle */
-
-
