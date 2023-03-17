@@ -1,11 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo, SignInImage } from "../elements/index";
 import clsx from "clsx";
+import {
+  useRegisterUserMutation,
+  useLoginUserMutation,
+} from "../features/userApi";
 
 const InputComponent = ({ type, icon }) => {
   const navigate = useNavigate();
   const buttonText = type === "signup" ? "Sign Up" : "Login";
+  // for passing value to register
+  const [registerUser, setRegisterUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  // for passing value to login
+  const [loginUser, setLoginUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    if (type === "signup") {
+      setRegisterUser({ ...registerUser, [name]: value });
+    } else  {
+      setLoginUser({ ...loginUser, [name]: value });
+    }
+  };
+
+  const [register] = useRegisterUserMutation();
+  const [login] = useLoginUserMutation();
+
+  const handleClick = () => {
+    if (type === "signup") {
+      if (confirmPassword!==registerUser.password){
+        alert("Passwords do not match")
+        setRegisterUser({ ...registerUser, password:""})
+        setConfirmPassword("")
+      }
+      // use RTK query hook 
+      register(registerUser)
+        .then((datas) => {
+          if (datas.error){
+            alert(datas.error.data.msg)
+            setConfirmPassword({
+              name: "",
+              email: "",
+              password: "",
+            });
+            setConfirmPassword("")
+          }
+          else{
+            navigate('/login')
+          }
+        })
+    } else {
+      login(loginUser).then((datas) => {
+        try {
+          localStorage.setItem("token", datas.data.user.token);
+          navigate("/dashboard");
+        } catch (err) {
+          setLoginUser({
+            email: "",
+            password: ""
+          });
+          alert(datas.error.data.msg);
+        }
+      });
+    }
+  };
+
   return (
     <div className="box-border landing-page bg-bgColor min-h-screen grid grid-cols-12 grid-flow-row relative z-0 gap-1">
       {/* transparent circle */}
@@ -27,7 +99,10 @@ const InputComponent = ({ type, icon }) => {
               <input
                 className="w-60 h-12 rounded-md bg-slate-800 text-slate-300 text-2xl p-3 text-center font-inputFont"
                 placeholder="Name"
+                name="name"
                 type="text"
+                value={registerUser.name}
+                onChange={handleChange}
               />
             ) : (
               <></>
@@ -37,35 +112,44 @@ const InputComponent = ({ type, icon }) => {
               className="w-60 h-12 rounded-md bg-slate-800 text-slate-300 text-2xl p-3 text-center font-inputFont"
               placeholder="Email"
               type="text"
+              name="email"
+              value={type === "signup" ? registerUser.email : loginUser.email}
+              onChange={handleChange}
             />
             {/* password */}
             <input
               className="w-60 h-12 rounded-md bg-slate-800 text-slate-300 text-2xl p-3 text-center font-inputFont"
               placeholder="Password"
-              type="text"
+              type="password"
+              name="password"
+              value={
+                type === "signup" ? registerUser.password : loginUser.password
+              }
+              onChange={handleChange}
             />
             {/* confirm password */}
             {type === "signup" ? (
               <input
                 className="w-60 h-12 rounded-md bg-slate-800 text-slate-300 text-2xl p-3 text-center font-inputFont"
                 placeholder="Confirm Password"
-                type="text"
+                type="password"
+                name="confirm-password"
+                value={confirmPassword}
+                onChange={(e)=>setConfirmPassword(e.target.value)}
               />
             ) : (
               <></>
             )}
             {/* signup button */}
             <button
-              onClick={() => {
-                navigate("/");
-              }}
+              onClick={handleClick}
               className="w-60 h-10 rounded-3xl text-slate-400 bg-slate-800 font-inputFont text-xl hover:bg-blue-900 hover:text-textColor active:bg-slate-900"
             >
               {buttonText}
             </button>
           </div>
           {/* image portion */}
-          <SignInImage type={type}/>
+          <SignInImage type={type} />
         </div>
       </div>
     </div>
