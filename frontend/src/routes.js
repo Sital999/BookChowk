@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import RegistrationPage from "./pages/RegistrationPage";
-import LoginPage from "./pages/LoginPage";
+import { LandingPage, RegistrationPage, LoginPage, Dashboard } from "./pages";
 
 function BookChowkRoutes() {
   return (
@@ -11,6 +9,7 @@ function BookChowkRoutes() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </>
