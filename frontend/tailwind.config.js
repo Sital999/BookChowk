@@ -1,5 +1,8 @@
+/** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  mode: "jit",
   theme: {
     extend: {
       colors: {
@@ -11,7 +14,16 @@ module.exports = {
       fontFamily: {
         inputFont: ["IBM Plex Sans", "sans-serif"],
       },
+      backgroundImage: {
+        "home-screen": "url('/src/assets/home-screen.png')",
+        "select-screen": "url('/src/assets/select-screen.png')",
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }) {
+      addVariant("child", "& > *");
+      addVariant("child-hover", "& > *:hover");
+    },
+  ],
 };
