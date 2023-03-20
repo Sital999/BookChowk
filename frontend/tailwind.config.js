@@ -10,6 +10,7 @@ module.exports = {
         textColor: "#B2DAD9CC",
         circleColor: "#293465",
         buyButton: "#649AB0",
+        select: "#14113C",
       },
       fontFamily: {
         inputFont: ["IBM Plex Sans", "sans-serif"],
