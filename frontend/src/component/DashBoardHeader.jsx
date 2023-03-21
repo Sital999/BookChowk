@@ -26,7 +26,7 @@ const DashBoardHeader = () => {
                   <img
                     src={No_Profile}
                     alt="dummyProfile"
-                    className="rounded-full h-14 w-14"
+                    className="rounded-full h-14 w-14 bg-slate-100"
                   />
                 </>
               ) : (
