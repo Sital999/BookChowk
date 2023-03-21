@@ -23,7 +23,7 @@ const InputComponent = ({ type, icon }) => {
     password: "",
   });
 
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const InputComponent = ({ type, icon }) => {
     const value = e.target.value;
     if (type === "signup") {
       setRegisterUser({ ...registerUser, [name]: value });
-    } else  {
+    } else {
       setLoginUser({ ...loginUser, [name]: value });
     }
   };
@@ -41,27 +41,25 @@ const InputComponent = ({ type, icon }) => {
 
   const handleClick = () => {
     if (type === "signup") {
-      if (confirmPassword!==registerUser.password){
-        alert("Passwords do not match")
-        setRegisterUser({ ...registerUser, password:""})
-        setConfirmPassword("")
+      if (confirmPassword !== registerUser.password) {
+        alert("Passwords do not match");
+        setRegisterUser({ ...registerUser, password: "" });
+        setConfirmPassword("");
       }
-      // use RTK query hook 
-      register(registerUser)
-        .then((datas) => {
-          if (datas.error){
-            alert(datas.error.data.msg)
-            setConfirmPassword({
-              name: "",
-              email: "",
-              password: "",
-            });
-            setConfirmPassword("")
-          }
-          else{
-            navigate('/login')
-          }
-        })
+      // use RTK query hook
+      register(registerUser).then((datas) => {
+        if (datas.error) {
+          alert(datas.error.data.msg);
+          setConfirmPassword({
+            name: "",
+            email: "",
+            password: "",
+          });
+          setConfirmPassword("");
+        } else {
+          navigate("/login");
+        }
+      });
     } else {
       login(loginUser).then((datas) => {
         try {
@@ -70,7 +68,7 @@ const InputComponent = ({ type, icon }) => {
         } catch (err) {
           setLoginUser({
             email: "",
-            password: ""
+            password: "",
           });
           alert(datas.error.data.msg);
         }
@@ -135,7 +133,7 @@ const InputComponent = ({ type, icon }) => {
                 type="password"
                 name="confirm-password"
                 value={confirmPassword}
-                onChange={(e)=>setConfirmPassword(e.target.value)}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             ) : (
               <></>

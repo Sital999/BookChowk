@@ -9,10 +9,18 @@ const Department = db.department;
 // Post /api/user/
 // register user
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password,semester,department } = req.body;
+
+  let userImage=""
+  if (req.file == undefined) {
+   userImage=""
+  }
+  else{
+   userImage = req.file.filename;
+  }
 
   //   check if name, email or password are empty
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !semester|| !department) {
     return res.status(400).json({ msg: "Please Fill all fields" });
   }
 
@@ -28,13 +36,16 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     name,
     email,
+    semester,
+    department,
+    userImage:userImage,
     password: hashPassword,
   });
 
   if (user) {
     return res
       .status(201)
-      .json({ user: { name, email, token: generateToken(user.id) } });
+      .json({ user: { name, email, token: generateToken(user.id),userImage,department,semester } });
   }
 });
 
@@ -42,6 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // Post /api/user/login
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
 
   // check email and password is empty or not
   if (!email || !password) {
@@ -49,6 +61,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findOne({ where: { email } });
+  console.log(user)
   // compare password using bcrypt.compare
   if (user && (await bcrypt.compare(password, user.password))) {
     return res.status(200).json({
@@ -56,6 +69,7 @@ const loginUser = asyncHandler(async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        image:user.userImage,
         token: generateToken(user.id),
       },
     });

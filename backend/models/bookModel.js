@@ -29,6 +29,10 @@ module.exports=(sequelize,Sequelize)=>{
         isSell:{
             type:boolean,
             defaultValue:false
+        },
+        bookImage:{
+            type:string,
+            allowNull:false
         }
     },{
         timestamps:false
