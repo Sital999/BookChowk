@@ -4,13 +4,16 @@ import DashBoardHeader from "../component/DashBoardHeader";
 import Book3D from "../assets/book3d.png";
 
 const Dashboard = () => {
-  const { isLoading, data: users, error } = useGetUserByNameQuery();
-  console.log(users);
+  const { isLoading, error } = useGetUserByNameQuery();
   if (isLoading) {
-    return <>Loading...</>;
+    return <div className="bg-slate-800 min-h-screen text-7xl text-slate-50 text-center">Loading...</div>;
   }
   if (error) {
-    return <>error...</>;
+    return (
+      <div className="bg-slate-800 min-h-screen text-7xl text-slate-50 text-center">
+        error...
+      </div>
+    );
   }
   return (
     <div className="min-h-screen bg-home-screen bg-cover space-y-10">
