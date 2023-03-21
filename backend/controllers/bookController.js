@@ -32,6 +32,8 @@ const postBook = asyncHandler(async (req, res) => {
     department,
   } = req.body;
 
+  const bookImage=req.file.filename
+
   // find semester and department of respective id
   const sem = await Semester.findOne({ where: { name: semester } });
   const dept = await Department.findOne({ where: { name: department } });
@@ -43,6 +45,7 @@ const postBook = asyncHandler(async (req, res) => {
     rent_price,
     selling_price,
     description,
+    bookImage,
     userID: req.userId,
     semesterID: sem==null?null:sem.id,
     departmentID: dept==null?null:dept.id 

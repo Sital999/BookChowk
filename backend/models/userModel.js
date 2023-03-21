@@ -23,9 +23,13 @@ module.exports = (sequelize, Sequelize) => {
       },
       semester:{
         type: Sequelize.STRING,
-        allowNull:true
+        allowNull:false
       },
       department:{
+        type: Sequelize.STRING,
+        allowNull:false
+      },
+      userImage:{
         type: Sequelize.STRING,
         allowNull:true
       }

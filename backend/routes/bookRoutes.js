@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer= require("multer");
+const path = require("path");
 const {protectedRoute}= require("../midlleware/authHandlerMiddleware")
 const {
   getBook,
@@ -11,7 +13,21 @@ const {
   searchBook,
 } = require("../controllers/bookController");
 
-router.route("/").get(protectedRoute, getBook).post(protectedRoute,postBook);
+const storage = multer.diskStorage({
+  destination: "./frontend/src/media/Images/bookImage/",
+  filename: (req, file, cb) => {
+    return cb(
+      null,
+      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+    );
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
+
+router.route("/").get(protectedRoute, getBook).post(protectedRoute,upload.single('bookImage'),postBook);
 router
   .route("/:bookId")
   .put(protectedRoute, updateBook)
