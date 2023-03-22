@@ -5,9 +5,12 @@ import clsx from "clsx";
 import {
   useRegisterUserMutation,
   useLoginUserMutation,
-} from "../features/userApi";
+} from "../features/user/userApi";
+import { useDispatch } from "react-redux";
+import {setUser} from "../features/user/userSlice"
 
 const InputComponent = ({ type, icon }) => {
+  const dispatch=useDispatch()
   const navigate = useNavigate();
   const buttonText = type === "signup" ? "Sign Up" : "Login";
   // for passing value to register
@@ -64,6 +67,8 @@ const InputComponent = ({ type, icon }) => {
       login(loginUser).then((datas) => {
         try {
           localStorage.setItem("token", datas.data.user.token);
+          localStorage.setItem("user", JSON.stringify(datas.data.user));
+          dispatch(setUser(datas.data.user));
           navigate("/dashboard");
         } catch (err) {
           setLoginUser({

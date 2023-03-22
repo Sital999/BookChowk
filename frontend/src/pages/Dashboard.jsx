@@ -1,20 +1,8 @@
 import React from "react";
-import { useGetUserByNameQuery } from "../features/userApi";
 import DashBoardHeader from "../component/DashBoardHeader";
 import Book3D from "../assets/book3d.png";
 
 const Dashboard = () => {
-  const { isLoading, error } = useGetUserByNameQuery();
-  if (isLoading) {
-    return <div className="bg-slate-800 min-h-screen text-7xl text-slate-50 text-center">Loading...</div>;
-  }
-  if (error) {
-    return (
-      <div className="bg-slate-800 min-h-screen text-7xl text-slate-50 text-center">
-        error...
-      </div>
-    );
-  }
   return (
     <div className="min-h-screen bg-home-screen bg-cover space-y-10">
       <DashBoardHeader />
@@ -29,7 +17,7 @@ const Dashboard = () => {
           </div>
           <div className="text-center text-xl flex flex-col items-center gap-8">
             <h1>Select the section you want to discover and trade</h1>
-            <div className="w-9/12 bg-select p-4 rounded-xl ring-1 ring-slate-50 border-slate-800 shadow-md shadow-slate-400 flex flex-col gap-6">
+            <div className="w-9/12 bg-box-bg-color p-4 rounded-xl ring-1 ring-slate-50 border-slate-800 shadow-md shadow-slate-400 flex flex-col gap-6">
               <h1>Genre</h1>
               <div className="flex flex-row justify-evenly pb-4 child:pt-10 text-xl text-cyan-900 font-bold">
                 <div className="shadow-md shadow-slate-500 rounded-xl bg-select-screen h-28 w-48 ring-1 ring-slate-100 hover:scale-105 ease-in-out">
