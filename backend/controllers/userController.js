@@ -69,7 +69,7 @@ const loginUser = asyncHandler(async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        image:user.userImage,
+        userImage:user.userImage,
         token: generateToken(user.id),
       },
     });
@@ -96,27 +96,36 @@ const generateToken = (id) => {
 
 // update semester and department
 
-const updateSemDept = asyncHandler(async (req, res) => {
-  const { semester, department } = req.body;
-  const sem = await Semester.findOne({ where: { name: semester } });
-  if (!sem) {
-    return res
-      .status(400)
-      .json({ msg: `Semester with name "${semester}" does not exist` });
-  }
-  const dept = await Department.findOne({ where: { name: department } });
-  if (!dept) {
-    return res
-      .status(400)
-      .json({ msg: `Department with name "${department}" does not exist` });
-  }
+const updateUser = asyncHandler(async (req, res) => {
+  // const { semester, department } = req.body;
+  
+  // const sem = await Semester.findOne({ where: { name: semester } });
+  // if (!sem) {
+  //   return res
+  //     .status(400)
+  //     .json({ msg: `Semester with name "${semester}" does not exist` });
+  // }
+  // const dept = await Department.findOne({ where: { name: department } });
+  // if (!dept) {
+  //   return res
+  //     .status(400)
+  //     .json({ msg: `Department with name "${department}" does not exist` });
+  // }
   // now update user
   // excludes exclude the provided properties
   const user = await User.findOne({
     attributes: { exclude: ["password"] },
     where: { id: req.userId },
   });
-  user.set(req.body);
+  // check userImage
+  console.log("A",req.file)
+  let userImage;
+  if (req.file == undefined) {
+    userImage = user.userImage;
+  } else {
+    userImage = req.file.filename;
+  }
+  user.set({...req.body ,userImage});
   await user.save();
   res.status(200).json({ user });
 });
@@ -125,5 +134,5 @@ module.exports = {
   registerUser,
   loginUser,
   users,
-  updateSemDept,
+  updateUser,
 };
