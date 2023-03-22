@@ -2,11 +2,13 @@ import headerReducer from "../features/headerSlice";
 import { configureStore } from "@reduxjs/toolkit";
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { userApi } from "../features/userApi";
+import { userApi } from "../features/user/userApi";
+import userReducer from "../features/user/userSlice";
 
 export const store = configureStore({
   reducer: {
     header: headerReducer,
+    user: userReducer,
     // Add the generated reducer as a specific top-level slice
     [userApi.reducerPath]: userApi.reducer,
   },
