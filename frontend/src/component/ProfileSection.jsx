@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from "react-redux";
 import { ProfileImage } from "../elements";
 
-const ProfileSection = ({ setUpdateProfile }) => {
+const ProfileSection = ({ setUpdateProfile,setAddBook }) => {
   const { user } = useSelector((state) => state.user);
 
   return (
@@ -17,7 +17,7 @@ const ProfileSection = ({ setUpdateProfile }) => {
         >
           Update Profile
         </button>
-        <button className="rounded-full bg-buyButton w-48 h-12">
+        <button className="rounded-full bg-buyButton w-48 h-12" onClick={() => setAddBook(true)}>
           Add Book
         </button>
       </div>
