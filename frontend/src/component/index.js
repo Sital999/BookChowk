@@ -8,4 +8,7 @@ export { default as UpdateProfileSection } from "./UpdateProfileSection";
 
 export { default as ProfileSection } from "./ProfileSection";
 
+export { default as AddBook } from "./AddBook";
+
+
 
