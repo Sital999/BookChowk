@@ -1,0 +1,1 @@
+export const Genres=['Novel','Course_Material']
