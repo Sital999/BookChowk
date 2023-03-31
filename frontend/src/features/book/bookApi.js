@@ -20,17 +20,22 @@ export const bookApi = createApi({
   tagTypes: ["book"],
   endpoints: (builder) => ({
     getBooks: builder.query({
-        query:()=>'/',
-        providesTags:['book'],
-        transformResponse:((books)=>{
-          const course_books=books.books.filter((book)=>book.genre===Course_Material)
-          const novels = books.books.filter(
-            (book) => book.genre === Novel
-          );
-          return {
-            course_books,novels
-          }
-        })
+      query: () => "/",
+      providesTags: ["book"],
+      transformResponse: (books) => {
+        const course_books = books.books.filter(
+          (book) => book.genre === Course_Material
+        );
+        const novels = books.books.filter((book) => book.genre === Novel);
+        return {
+          course_books,
+          novels,
+        };
+      },
+    }),
+    singleBook: builder.query({
+      query: (bookId) => `/${bookId}`,
+      providesTags: ["book"],
     }),
     searchBook: builder.query({
       query: () => "/search",
@@ -44,13 +49,28 @@ export const bookApi = createApi({
       }),
       invalidatesTags: ["book"],
     }),
+    sellBook: builder.mutation({
+      query: (bookId) => ({
+        url: `/sell/${bookId}`,
+        method: "PUT",
+      }),
+    }),
+    rentBook: builder.mutation({
+      query: (bookId) => ({
+        url: `/rent/${bookId}`,
+        method: "PUT",
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
+  useSingleBookQuery,
   useAddBookMutation,
   useGetBooksQuery,
-  useSearchBookQuery
+  useSearchBookQuery,
+  useSellBookMutation,
+  useRentBookMutation
 } = bookApi;

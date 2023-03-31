@@ -5,6 +5,7 @@ const path = require("path");
 const {protectedRoute}= require("../midlleware/authHandlerMiddleware")
 const {
   getBook,
+  getBooks,
   postBook,
   updateBook,
   deleteBook,
@@ -27,9 +28,10 @@ const upload = multer({
   storage: storage,
 });
 
-router.route("/").get(protectedRoute, getBook).post(protectedRoute,upload.single('bookImage'),postBook);
+router.route("/").get(protectedRoute, getBooks).post(protectedRoute,upload.single('bookImage'),postBook);
 router
   .route("/:bookId")
+  .get(protectedRoute,getBook)
   .put(protectedRoute, updateBook)
   .delete(protectedRoute, deleteBook);
 router.route("/rent/:bookId").put(protectedRoute, rentBook)
