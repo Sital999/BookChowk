@@ -10,3 +10,6 @@ export { default as ProfilePage} from './ProfilePage'
 
 export { default as BookSectionPage } from "./BookSectionPage";
 
+export { default as BuyRentPage } from "./BuyRentPage";
+
+
