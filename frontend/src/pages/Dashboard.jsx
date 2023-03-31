@@ -1,8 +1,10 @@
 import React from "react";
-import DashBoardHeader from "../component/DashBoardHeader";
+import {DashBoardHeader} from "../component";
 import Book3D from "../assets/book3d.png";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate()
   return (
     <div className="min-h-screen bg-home-screen bg-cover space-y-10">
       <DashBoardHeader />
@@ -20,10 +22,16 @@ const Dashboard = () => {
             <div className="w-9/12 bg-box-bg-color p-4 rounded-xl ring-1 ring-slate-50 border-slate-800 shadow-md shadow-slate-400 flex flex-col gap-6">
               <h1>Genre</h1>
               <div className="flex flex-row justify-evenly pb-4 child:pt-10 text-xl text-cyan-900 font-bold">
-                <div className="shadow-md shadow-slate-500 rounded-xl bg-select-screen h-28 w-48 ring-1 ring-slate-100 hover:scale-105 ease-in-out">
+                <div
+                  onClick={() => navigate("/book/novel")}
+                  className="shadow-md shadow-slate-500 rounded-xl bg-select-screen h-28 w-48 ring-1 ring-slate-100 hover:scale-105 ease-in-out"
+                >
                   <h1>Novel</h1>
                 </div>
-                <div className="shadow-md shadow-slate-500 rounded-xl bg-select-screen h-28 w-48 ring-1 ring-slate-100 hover:scale-105 ease-in-out">
+                <div
+                  onClick={() => navigate("/book/course")}
+                  className="shadow-md shadow-slate-500 rounded-xl bg-select-screen h-28 w-48 ring-1 ring-slate-100 hover:scale-105 ease-in-out"
+                >
                   <h1>Course Material</h1>
                 </div>
               </div>
