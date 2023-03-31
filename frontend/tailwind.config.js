@@ -11,6 +11,7 @@ module.exports = {
         circleColor: "#293465",
         buyButton: "#649AB0",
         inputBox: "rgba(57, 98, 136, 0.78)",
+        bookBox: "rgba(57, 98, 136, 0.78)",
       },
       fontFamily: {
         inputFont: ["IBM Plex Sans", "sans-serif"],

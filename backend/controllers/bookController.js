@@ -13,9 +13,9 @@ const Sequelize = db.sequelize;
 // GET /api/book
 
 const getBook = asyncHandler(async (req, res) => {
-  const book = await Book.findAll({order:[['name','ASC']]});
+  const books = await Book.findAll({order:[['name','ASC']]});
 
-  return res.status(200).json({ book });
+  return res.status(200).json({ books});
 });
 
 // post Book

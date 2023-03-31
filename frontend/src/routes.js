@@ -5,6 +5,7 @@ import {
   LoginPage,
   Dashboard,
   ProfilePage,
+  BookSectionPage,
 } from "./pages";
 
 function BookChowkRoutes() {
@@ -17,6 +18,7 @@ function BookChowkRoutes() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/book/:section" element={<BookSectionPage />} />
         </Routes>
       </Router>
     </>
