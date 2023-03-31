@@ -1,4 +1,4 @@
-const asyncHandler = require("express-async-handler");
+const asyncHandler = require("express-async-Handler");
 const { db } = require("../models");
 const Notification = db.notification;
 
@@ -25,11 +25,10 @@ const getNotification = asyncHandler(async (req, res) => {
 // delete notification
 //DELETE /api/notifications/id
 const deleteNotification = asyncHandler(async (req, res) => {
-    const {id}=req.params
-    const notification=await Notification.findOne({where:{id}})
-    // delete the selected notification
-    await notification.destroy()
-    res.status(202).json({notificationId:id})
-
+  const { id } = req.params;
+  const notification = await Notification.findOne({ where: { id } });
+  // delete the selected notification
+  await notification.destroy();
+  res.status(202).json({ notificationId: id });
 });
 module.exports = { getNotification, deleteNotification };

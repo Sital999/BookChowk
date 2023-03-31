@@ -12,11 +12,21 @@ const Sequelize = db.sequelize;
 // get Book
 // GET /api/book
 
-const getBook = asyncHandler(async (req, res) => {
+const getBooks = asyncHandler(async (req, res) => {
   const books = await Book.findAll({order:[['name','ASC']]});
 
   return res.status(200).json({ books});
 });
+
+// get single book
+const getBook=asyncHandler(async(req, res)=>{
+  const {bookId}=req.params
+    const book=await Book.findOne({where:{id:bookId}})
+    if (book){
+      return res.status(200).json({ book });
+    }
+    return res.status(404).json({msg:"Book not found"})
+})
 
 // post Book
 // POST /api/book
@@ -109,7 +119,7 @@ const rentBook = asyncHandler(async (req, res) => {
     });
     await book.save();
   } else {
-    return res.status(200).json({ msg: "Book already sold" });
+    return res.status(400).json({ msg: "Book already sold" });
   }
 
   // create notification for the user buying
@@ -154,7 +164,7 @@ const sellBook = asyncHandler(async (req, res) => {
     });
     await book.save();
   } else {
-    return res.status(200).json({ msg: "Book already on rent" });
+    return res.status(400).json({ msg: "Book already on rent" });
   }
   // create notification for the user buying
 
@@ -179,8 +189,11 @@ const searchBook=asyncHandler(async(req, res)=>{
   res.status(200).json({books})
 })
 
+
+
 module.exports = {
   getBook,
+  getBooks,
   postBook,
   updateBook,
   deleteBook,
