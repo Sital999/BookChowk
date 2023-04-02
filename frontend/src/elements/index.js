@@ -6,6 +6,9 @@ export { default as ProfileImage } from "./ProfileImage";
 
 export { default as Dropdown } from "./Dropdown";
 
+export { default as SearchBar } from "./SearchBar";
+
+
 
 
 
