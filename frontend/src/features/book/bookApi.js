@@ -38,7 +38,7 @@ export const bookApi = createApi({
       providesTags: ["book"],
     }),
     searchBook: builder.query({
-      query: () => "/search",
+      query: (book) => `/search?name=${book}`,
       providesTags: ["book"],
     }),
     addBook: builder.mutation({
@@ -71,6 +71,7 @@ export const {
   useAddBookMutation,
   useGetBooksQuery,
   useSearchBookQuery,
+  useLazySearchBookQuery,
   useSellBookMutation,
   useRentBookMutation
 } = bookApi;
