@@ -1,4 +1,4 @@
-const asyncHandler = require("express-async-Handler");
+const asyncHandler = require("express-async-handler");
 const { db } = require("../models");
 const Book = db.book;
 const Notification = db.notification;
@@ -180,13 +180,20 @@ const sellBook = asyncHandler(async (req, res) => {
 // search books of matching name for given name
 const searchBook=asyncHandler(async(req, res)=>{
   const {name}=req.query
+  if (!name){
+     throw new Error('No query in endpoint')
+  }
   const books = await Book.findAll({
     where:{
       name:{[Op.like]:`%${name}%`}
     },
     order: [["name", "ASC"]],
   });
-  res.status(200).json({books})
+  if (books.length ===0){
+  throw new Error("No book found with such name");
+  }
+  return res.status(200).json({ books });
+
 })
 
 
