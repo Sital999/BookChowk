@@ -28,14 +28,15 @@ const upload = multer({
   storage: storage,
 });
 
+router.route("/search").get(protectedRoute, searchBook);
+
 router.route("/").get(protectedRoute, getBooks).post(protectedRoute,upload.single('bookImage'),postBook);
 router
   .route("/:bookId")
   .get(protectedRoute,getBook)
   .put(protectedRoute, updateBook)
   .delete(protectedRoute, deleteBook);
-router.route("/rent/:bookId").put(protectedRoute, rentBook)
+router.route("/rent/:bookId").put(protectedRoute, rentBook);
 router.route("/sell/:bookId").put(protectedRoute, sellBook);
-router.route("/search").get(protectedRoute, searchBook)
 
 module.exports = router;
