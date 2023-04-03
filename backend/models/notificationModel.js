@@ -6,6 +6,7 @@ module.exports = (sequelize, Sequelize) => {
     acknowledge: { type: Sequelize.BOOLEAN, defaultValue: false },
     buyer: { type: Sequelize.STRING },
     renter: { type: Sequelize.STRING },
+    bookNamed: { type: Sequelize.STRING}
   });
   return Notfication;
 };

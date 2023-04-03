@@ -71,6 +71,8 @@ const loginUser = asyncHandler(async (req, res) => {
         email: user.email,
         userImage:user.userImage,
         token: generateToken(user.id),
+        semester:user.semester,
+        department:user.department
       },
     });
   }
