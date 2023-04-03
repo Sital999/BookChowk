@@ -8,6 +8,7 @@ import {
 } from "../features/user/userApi";
 import { useDispatch } from "react-redux";
 import {setUser} from "../features/user/userSlice"
+import {setToken} from "../features/headerSlice"
 
 const InputComponent = ({ type, icon }) => {
   const dispatch=useDispatch()
@@ -18,6 +19,8 @@ const InputComponent = ({ type, icon }) => {
     name: "",
     email: "",
     password: "",
+    department:"",
+    semester:""
   });
 
   // for passing value to login
@@ -57,6 +60,8 @@ const InputComponent = ({ type, icon }) => {
             name: "",
             email: "",
             password: "",
+            semester:"",
+            department:""
           });
           setConfirmPassword("");
         } else {
@@ -69,6 +74,7 @@ const InputComponent = ({ type, icon }) => {
           localStorage.setItem("token", datas.data.user.token);
           localStorage.setItem("user", JSON.stringify(datas.data.user));
           dispatch(setUser(datas.data.user));
+          dispatch(setToken(datas.data.user.token));
           navigate("/dashboard");
         } catch (err) {
           setLoginUser({
@@ -82,14 +88,21 @@ const InputComponent = ({ type, icon }) => {
   };
 
   return (
-    <div className="box-border landing-page bg-bgColor min-h-screen grid grid-cols-12 grid-flow-row relative z-0 gap-1">
+    <div
+      className={clsx(
+        "box-border landing-page bg-bgColor grid grid-cols-12 grid-flow-row relative z-0 gap-1",{
+          "min-h-[800px]" : type==="signup",
+          "min-h-[680px]" : type==="login"
+        }
+      )}
+    >
       {/* transparent circle */}
       <div className="  col-start-0 col-span-1 w-50 h-50 border-t-[50px] border-t-transparent  border-r-[100px] border-r-indigo-600  border-b-[50px] border-b-transparent opacity-60 bg-circleColor blur-3xl "></div>
       <div className="row-start-4 row-span-2 col-start-12 col-span-3 w-50 h-50 border-t-[50px] border-t-transparent border-r-[100px] border-r-indigo-600 border-b-[50px] border-b-transparent opacity-60 bg-circleColor blur-3xl "></div>
       {/* logo */}
       <Logo icon={icon} />
       {/* content */}
-      <div className=" absolute z-10 col-start-4 col-span-6 row-start-2 ">
+      <div className=" absolute z-10 col-start-4 col-span-6 row-start-2">
         <div className="rounded-lg grid grid-cols-6 grid-flow-row bg-slate-300 text-slate-100">
           <div
             className={clsx("col-start-1 m-10", {
@@ -143,6 +156,31 @@ const InputComponent = ({ type, icon }) => {
             ) : (
               <></>
             )}
+            {type === "signup" ? (
+              <input
+                className="w-60 h-12 rounded-md bg-slate-800 text-slate-300 text-2xl p-3 text-center font-inputFont"
+                placeholder="Semester"
+                name="semester"
+                type="text"
+                value={registerUser.semester}
+                onChange={handleChange}
+              />
+            ) : (
+              <></>
+            )}
+            {type === "signup" ? (
+              <input
+                className="w-60 h-12 rounded-md bg-slate-800 text-slate-300 text-2xl p-3 text-center font-inputFont"
+                placeholder="Department"
+                name="department"
+                type="text"
+                value={registerUser.department}
+                onChange={handleChange}
+              />
+            ) : (
+              <></>
+            )}
+
             {/* signup button */}
             <button
               onClick={handleClick}
