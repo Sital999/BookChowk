@@ -6,7 +6,7 @@ const SignInImage = ({type}) => {
       <img
         src={signupPicture}
         style={{
-          height:type==="login"? "300px":"400px",
+          height:type==="login"? "300px":"530px",
           width: "600px",
           borderTopRightRadius: "2%",
           borderBottomRightRadius: "2%",
