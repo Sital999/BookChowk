@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 
-const Dropdown = ({ title, contents, setValue, clicked }) => {
+const Dropdown = ({ title, contents, setValue, clicked=false }) => {
   const [hidden, setHidden] = useState(true);
   const [onSelectValue, setOnSelectValue] = useState("");
   const handleSelect = (e) => {

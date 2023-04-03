@@ -111,6 +111,10 @@ const rentBook = asyncHandler(async (req, res) => {
     throw new Error(`No Book found with id: ${bookId}`);
   }
 
+   if (book.userID === user.id) {
+     throw new Error("Same user cant rent");
+   }
+
   // check if book is already sold or not
   if (!book.isSell) {
     // update on book
@@ -150,10 +154,17 @@ const sellBook = asyncHandler(async (req, res) => {
   // user who wants to rent a book
   const user = await User.findOne({ where: { id: req.userId } });
 
+
+
   // if book not found
   if (!book) {
     res.status(400);
     throw new Error(`No Book found with id: ${bookId}`);
+  }
+
+  // checking if same user is buying
+  if (book.userID === req.userId) {
+    throw new Error("Same user cant buy");
   }
 
   // check if book is already on rent or not
@@ -172,6 +183,7 @@ const sellBook = asyncHandler(async (req, res) => {
     buy: true,
     userID: book.userID,
     buyer: user.name,
+    bookName:book.name
   });
   return res.status(200).json({ book, notification });
 });
