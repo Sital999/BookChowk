@@ -1,8 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit"
 
+const token = localStorage.getItem("token");
+
+
 const initialState={
     login:false,
-    signup:false
+    signup:false,
+    token:token?token:"",
 }
 
 const headerSlice = createSlice({
@@ -20,9 +24,12 @@ const headerSlice = createSlice({
     setReset:(state)=>{
         state.login=false;
         state.signup=false
+    },
+    setToken:(state,action)=>{
+      state.token=action.payload;
     }
   },
 });
 
 export default headerSlice.reducer
-export const {setLogin,setRegister,setReset} = headerSlice.actions
+export const {setLogin,setRegister,setReset,setToken} = headerSlice.actions
