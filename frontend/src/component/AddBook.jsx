@@ -4,8 +4,11 @@ import { Departments } from "../constants/department";
 import { Genres } from "../constants/genre";
 import {Semesters} from "../constants/semester";
 import {Dropdown } from "../elements"
+import { useNavigate } from "react-router-dom";
+
 
 const AddBook = () => {
+  const navigate = useNavigate();
       const [addBook] = useAddBookMutation()
       const [book,setBook]=useState({
         name:"",
@@ -42,8 +45,13 @@ const AddBook = () => {
         formdata.append('bookImage',bookImage)
         setClicked(true)
         addBook(formdata).then((datas)=>{
-            console.log(datas)
-        }).catch((err)=>{console.log(err)})
+          if (datas.error){
+            alert(datas.error.message)
+          }
+          else{
+            navigate('/dashboard')
+          }
+        })
         setBook({
           name: "",
           genre: "",
@@ -54,6 +62,7 @@ const AddBook = () => {
           description: "",
         });
       }
+
       useEffect(()=>{
         setClicked(false)
       },[genre,department,semester])
