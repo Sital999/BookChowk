@@ -45,7 +45,8 @@ const InputComponent = ({ type, icon }) => {
   const [register] = useRegisterUserMutation();
   const [login] = useLoginUserMutation();
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault()
     if (type === "signup") {
       if (confirmPassword !== registerUser.password) {
         alert("Passwords do not match");
@@ -54,6 +55,7 @@ const InputComponent = ({ type, icon }) => {
       }
       // use RTK query hook
       register(registerUser).then((datas) => {
+
         if (datas.error) {
           alert(datas.error.data.msg);
           setConfirmPassword({
@@ -70,18 +72,18 @@ const InputComponent = ({ type, icon }) => {
       });
     } else {
       login(loginUser).then((datas) => {
-        try {
+        if (!datas.error) {
           localStorage.setItem("token", datas.data.user.token);
           localStorage.setItem("user", JSON.stringify(datas.data.user));
           dispatch(setUser(datas.data.user));
           dispatch(setToken(datas.data.user.token));
           navigate("/dashboard");
-        } catch (err) {
+        } else  {
           setLoginUser({
             email: "",
             password: "",
           });
-          alert(datas.error.data.msg);
+          alert(datas.error.message)
         }
       });
     }
@@ -183,7 +185,7 @@ const InputComponent = ({ type, icon }) => {
 
             {/* signup button */}
             <button
-              onClick={handleClick}
+              onClick={(e) => handleClick(e)}
               className="w-60 h-10 rounded-3xl text-slate-400 bg-slate-800 font-inputFont text-xl hover:bg-blue-900 hover:text-textColor active:bg-slate-900"
             >
               {buttonText}

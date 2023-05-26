@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useUpdateUserMutation } from "../features/user/userApi";
-import {setUser} from "../features/user/userSlice"
+import { setUser } from "../features/user/userSlice"
 
 const UpdateProfileSection = ({ setUpdateProfile }) => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.user);
   const [name, setName] = useState(user.name);
   const [department, setDepartment] = useState(user.department);
   const [semester, setSemester] = useState(user.semester);
   const [email, setEmail] = useState(user.email);
   const [userImage, setImage] = useState(null);
-  const formdata =new FormData();
+  const formdata = new FormData();
 
   const [updateUserProfile] = useUpdateUserMutation();
   const handleClick = () => {
@@ -23,12 +23,15 @@ const UpdateProfileSection = ({ setUpdateProfile }) => {
 
     updateUserProfile(formdata)
       .then((datas) => {
-        localStorage.setItem("user", JSON.stringify(datas.data.user));
-        dispatch(setUser(datas.data.user));
+        if (!datas.error) {
+          localStorage.setItem("user", JSON.stringify(datas.data.user));
+          dispatch(setUser(datas.data.user));
+          setUpdateProfile(false);
+        }
+        else{
+          alert(datas.error.message)
+        }
       })
-      .catch((err) => console.log(err));
-
-    setUpdateProfile(false);
 
   };
   return (
