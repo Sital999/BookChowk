@@ -21,7 +21,9 @@ const DashBoardHeader = () => {
             <h1 className="hover:underline hover:underline-offset-8">
               Contact
             </h1>
-            <h1 onClick={()=>{localStorage.clear();
+            <h1 onClick={()=>{
+                localStorage.removeItem('token');
+              localStorage.removeItem('user');
                 dispatch(resetUser())
                 dispatch(setToken(""))
                 navigate('/login')
