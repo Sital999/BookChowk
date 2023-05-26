@@ -31,7 +31,7 @@ const BookSectionPage = () => {
       <div className="text-slate-50 relative flex justify-center">
         <SearchBar setIsSearch={setIsSearch} setSearchBooks={setSearchBooks} />
         {isSearch ? (
-          <div className="absolute z-10 w-1/4 text-center bg-slate-500 rounded-sm mt-10">
+          <div className="absolute z-10 w-1/4 text-center bg-slate-500 rounded-sm mt-10 cursor-pointer">
             {searchBooks && searchBooks.map((book) => {
               return (
                 <div
