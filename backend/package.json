@@ -4,7 +4,7 @@
   "description": "simple web application for buying and renting books",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./backend/server.js"
+    "start": "nodemon ./server.js"
   },
   "repository": {
     "type": "git",
