@@ -11,7 +11,7 @@ const {
 const { protectedRoute } = require("../midlleware/authHandlerMiddleware");
 
 const storage = multer.diskStorage({
-  destination: "./frontend/src/media/Images/userImage/",
+  destination: "../frontend/src/media/Images/userImage/",
   filename: (req, file, cb) => {
     return cb(
       null,

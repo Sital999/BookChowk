@@ -15,7 +15,7 @@ const {
 } = require("../controllers/bookController");
 
 const storage = multer.diskStorage({
-  destination: "./frontend/src/media/Images/bookImage/",
+  destination: "../frontend/src/media/Images/bookImage/",
   filename: (req, file, cb) => {
     return cb(
       null,
