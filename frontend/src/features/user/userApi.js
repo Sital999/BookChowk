@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
-const token =localStorage.getItem('token')
+const token = localStorage.getItem("token");
 
 // Define a service using a base URL and expected endpoints
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/user",
+    baseUrl: "http://localhost:8000/api/user",
     prepareHeaders: (headers) => {
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -53,5 +52,5 @@ export const {
   useGetUserByNameQuery,
   useRegisterUserMutation,
   useLoginUserMutation,
-  useUpdateUserMutation
+  useUpdateUserMutation,
 } = userApi;

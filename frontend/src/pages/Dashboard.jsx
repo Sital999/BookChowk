@@ -1,10 +1,11 @@
 import React from "react";
-import {DashBoardHeader} from "../component";
+import { DashBoardHeader } from "../component";
 import Book3D from "../assets/book3d.png";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate()
+
   return (
     <div className="min-h-screen bg-home-screen bg-cover space-y-10">
       <DashBoardHeader />

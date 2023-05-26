@@ -6,6 +6,8 @@ import book from "../assets/book.png";
 import { useDispatch } from "react-redux";
 import { setReset } from "../features/headerSlice";
 
+
+
 const LandingPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
