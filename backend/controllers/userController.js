@@ -120,7 +120,6 @@ const updateUser = asyncHandler(async (req, res) => {
     where: { id: req.userId },
   });
   // check userImage
-  console.log("A",req.file)
   let userImage;
   if (req.file == undefined) {
     userImage = user.userImage;

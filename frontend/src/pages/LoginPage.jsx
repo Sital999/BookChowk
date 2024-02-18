@@ -2,13 +2,13 @@ import React from "react";
 import login from "../assets/login.png";
 import { Header, InputComponent } from "../component/index";
 
-const RegistrationPage = () => {
+const LoginPage = () => {
   return (
-    <>
+    <div className={'h-screen bg-bgColor'}>
       <Header />
       <InputComponent type={"login"} icon={login} />
-    </>
+    </div>
   );
 };
 
-export default RegistrationPage;
+export default LoginPage;

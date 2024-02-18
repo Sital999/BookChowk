@@ -92,6 +92,7 @@ const InputComponent = ({ type, icon }) => {
   return (
     <div
       className={clsx(
+
         "box-border landing-page bg-bgColor grid grid-cols-12 grid-flow-row relative z-0 gap-1",{
           "min-h-[800px]" : type==="signup",
           "min-h-[680px]" : type==="login"

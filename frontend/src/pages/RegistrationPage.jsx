@@ -5,12 +5,12 @@ import signup from "../assets/signup.png";
 
 
 const RegistrationPage = () => {
-  return (
-    <div className="min-h-fit">
-      <Header />
-      <InputComponent type={'signup'} icon={signup}/>
-    </div>
-  );
+    return (
+        <div className={'h-screen bg-bgColor'}>
+            <Header/>
+            <InputComponent type={'signup'} icon={signup}/>
+        </div>
+    );
 };
 
 export default RegistrationPage;
